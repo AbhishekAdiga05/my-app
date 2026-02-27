@@ -3,13 +3,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useEffect } from "react";
 
 export default function CartPage() {
-  const { cart, addToCart } = useCartStore();
-
-  useEffect(() => {
-    if (!cart.some((item) => item.name === "Product 1")) {
-      addToCart({ id: Date.now(), name: "Product 1", price: 10 });
-    }
-  }, [addToCart, cart]);
+  const { cart, addToCart, deleteCartItem } = useCartStore();
 
   return (
     <main className="min-h-screen bg-gray-100 p-10">
@@ -23,6 +17,12 @@ export default function CartPage() {
           >
             <h2 className="text-xl font-semibold">{item.name}</h2>
             <p className="text-gray-600">Price: ${item.price}</p>
+            <button
+              className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+              onClick={() => deleteCartItem(item.id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
